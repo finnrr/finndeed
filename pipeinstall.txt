@@ -1,0 +1,9 @@
+ 
+pipenv install scikit-learn pandas sklearn-pandas flask gunicorn nltk selenium beautifulsoup4 dill lxml 
+
+
+heroku config:set firefox_path=/app/vendor/firefox/firefox
+
+
+heroku config:set gecko_path=/app/vendor/geckodriver/geckodriver
+

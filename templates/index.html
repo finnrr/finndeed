@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="./static/css/main.css" type="text/css" />
+
+</head>
+<body>
+
+<button onclick="window.location.href = '/newjobpage';">New Jobs</button>
+<button onclick="window.location.href = '/about';">About</button>
+<form action = "/retrain" method="POST">
+    <button type="submit" name='Submit'>Retrain</button>
+    
+    </form> 
+
+<button class="open-button" onclick="openForm()">Add Link</button>
+
+<div class="form-popup" id="myForm">
+  <form action="/add_link" class="form-container" method="POST">
+
+    
+
+    <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+    <font size="2">
+    <label for="title_new">Title:</label>
+    <input type="text" name="title_new">
+    <label for="link_new">Link:</label>
+    <input type="text" name="link_new">
+
+</font>
+  
+  <button type="submit" value="Submit">Submit</button>
+  </form>
+</div>
+
+
+
+
+    
+
+</form>   
+
+<br><br><br>
+
+    {% for item in title.values() %}
+<table>
+    
+    
+ 
+        <tr><td>
+        
+    <a href="{{ link[loop.index0] }}" target="_blank">{{ item }}</a>
+    <br>
+    <font size="2">
+    liked: 
+
+    {%if like[loop.index0] == 0 %}
+    ▼
+    {%endif%}
+
+    {%if like[loop.index0] == 1 %}
+    ▲
+    {%endif%}
+
+    {%if like[loop.index0] == 9 %}
+    ?
+    {%endif%}
+
+    scraped: 
+
+    {%if  scraped[loop.index0] ==  1%}
+    ✓
+    {% else %}
+    ✖
+    {%endif%}
+
+
+    
+    </font>
+    <br>
+    <form action = "/upvote" method="POST">
+    <button type="submit" name='upvote' value={{ link[loop.index0]}} >Upvote</button>
+    </form>
+    <form action = "/downvote" method="POST">
+    <button type="submit" name='downvote' value={{ link[loop.index0]}} >Downvote</button>
+    </form>
+    <form action = "/remove_link" method="POST">
+    <button type="submit" name='link' value={{ link[loop.index0]}} >Delete</button>
+    </form>
+    <form action = "/scrape_single" method="POST">
+    <button type="submit" name='link' value={{ link[loop.index0]}} >Scrape</button>
+    </form>
+    {%if  scraped[loop.index0] ==  1%}
+    <form action = "/predict_single_dataframe" method="POST">
+    <button type="submit" name='link' value={{ link[loop.index0]}} >Predict</button>
+    </form>
+    {%endif%}
+
+
+</td></tr>
+</table>
+<table>
+    <td>
+        {%if  predict[loop.index0] !=  None and predict[loop.index0] != 0 %}
+        {{predict[loop.index0]}}
+        {%endif%}
+        <br>
+        <br>
+        <br>
+</td>
+</table>
+<br>
+{% endfor %}
+
+
+
+
+
+
+
+   
+    
+
+    
+    <script>
+    function openForm() {
+      document.getElementById("myForm").style.display = "block";
+    }
+    
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+    }
+    </script>
+
+
+
+
+
+
+
+</body>
+</html>
